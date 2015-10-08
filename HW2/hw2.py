@@ -69,7 +69,6 @@ class decision(object):
         """
         self.options = options
         self.stakeholders = stakeholders
-        self.decision = decide(self.options)
         
     def __str__(self):
         return ("#<decision options: " + str(self.options) + 
@@ -181,7 +180,7 @@ def explain(optionList, stackHolder = None):
                 if len(posParts) > 0:
                     preferOption.explanation[holder] += ".\n However, if there is a " + posParts + ",\n we might reconsider our decision and choose you as our option."
                 
-    return preferOption
+    return decision(preferOption, stackHolder)
 
 def returnStr(index):
     if index % 2 == 0:
@@ -212,8 +211,10 @@ optSC = option("SC", 20000000, 2, 10, .05, True, 4000,
 s = ["stockholders", "unions", "OH", "SC"]
 opt = [optOH, optSC]
 d = decision(opt, s)
+
+"""
+print decide(opt)
 print sensitivity(opt)
-print(d.decision)
 print('OH npv: ' + str(optOH.npv))
 print("SC npv: " + str(optSC.npv))
 
@@ -231,6 +232,7 @@ for loc in ['OH', 'SC']:
     index += 1
 print printStr
 
-for explanation in explain(opt, d.stakeholders).explanation.items():
+for explanation in explain(opt, d.stakeholders).options.explanation.items():
     print explanation[1]
+"""
     
